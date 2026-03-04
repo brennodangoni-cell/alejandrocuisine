@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Menu Découverte | Alejandro Cuisine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#e9e2d0;
+  --primary:#8f7250;
+  --border:rgba(143,114,80,.35);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  background:var(--bg);
+  font-family:'Cormorant Garamond',serif;
+  color:var(--primary);
+}
+
+header{
+  position:sticky;
+  top:0;
+  background:var(--bg);
+  padding:16px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+  font-size:22px;
+  z-index:10;
+}
+
+.back{
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  text-decoration:none;
+  color:var(--primary);
+  opacity:.7;
+  font-size:14px;
+}
+
+#viewer{
+  padding:20px 0;
+}
+
+canvas{
+  display:block;
+  margin:0 auto 20px;
+  max-width:100%;
+  height:auto !important;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="menus.html" class="back">← Voltar</a>
+  Menu Découverte
+</header>
+
+<div id="viewer"></div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+const url = 'pdfs/menu-decouverte.pdf';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+const container = document.getElementById('viewer');
+const dpr = window.devicePixelRatio || 1;
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    pdf.getPage(pageNum).then(page => {
+
+      // viewport base
+      const viewport = page.getViewport({ scale: 1 });
+
+      // escala pra caber na tela
+      const scale = window.innerWidth / viewport.width;
+
+      // viewport final em alta densidade
+      const scaledViewport = page.getViewport({
+        scale: scale * dpr
+      });
+
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+
+      // tamanho visual correto (CSS)
+      canvas.style.width = (scaledViewport.width / dpr) + 'px';
+      canvas.style.height = (scaledViewport.height / dpr) + 'px';
+
+      container.appendChild(canvas);
+
+      page.render({
+        canvasContext: context,
+        viewport: scaledViewport
+      });
+
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>

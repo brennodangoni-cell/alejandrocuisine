@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alejandro Cuisine | Chef Privado</title>
+<meta name="description" content="Cozinha de fusão. Experiência sensorial. Eventos exclusivos e jantares únicos.">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#e9e2d0;
+  --primary:#8f7250;
+  --soft:rgba(143,114,80,.22);
+  --wa:#25d366;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  background:var(--bg);
+  font-family:Inter,sans-serif;
+  color:var(--primary);
+}
+
+a,button{
+  all:unset;
+  cursor:pointer;
+}
+
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:32px 22px 46px;
+  text-align:center;
+}
+
+/* LOGO */
+.logo{
+  width:100px; /* muda só aqui */
+  margin-bottom:8px;
+}
+
+h1{
+  font-family:"Cormorant Garamond",serif;
+  font-size:34px;
+  font-weight:500;
+}
+
+/* EDITORIAL */
+.editorial{
+  margin:26px 0 38px;
+  padding:22px 0;
+}
+
+.editorial::before,
+.editorial::after{
+  content:"";
+  display:block;
+  width:90px;
+  height:1px;
+  margin:0 auto;
+  background:linear-gradient(
+    to right,
+    transparent,
+    rgba(143,114,80,.8),
+    transparent
+  );
+}
+
+.editorial::before{margin-bottom:16px}
+.editorial::after{margin-top:18px}
+
+.editorial span{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:19px;
+  line-height:1.5;
+}
+
+/* BOTÕES */
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.link-btn{
+  padding:15px;
+  border-radius:999px;
+  border:1px solid var(--soft);
+  font-size:15px;
+  font-weight:500;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  transition:background .25s ease, transform .2s ease;
+}
+
+.link-btn:hover{
+  background:var(--soft);
+}
+
+.link-btn:active{
+  transform:scale(.97);
+}
+
+.whatsapp{
+  border-color:rgba(37,211,102,.45);
+}
+
+.whatsapp i{
+  color:var(--wa);
+}
+
+/* EVENTOS INLINE (SPA) */
+.events{
+  display:none;
+  margin-top:18px;
+  padding:18px 16px;
+  border:1px solid var(--soft);
+  border-radius:16px;
+  font-size:14px;
+  line-height:1.6;
+  animation:fade .35s ease;
+}
+
+.events.open{
+  display:block;
+}
+
+/* FOOTER */
+footer{
+  margin-top:40px;
+  font-size:12px;
+  opacity:.7;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<main class="container">
+
+  <img src="logo.png" alt="Alejandro Cuisine" class="logo">
+  <h1>Alejandro Cuisine</h1>
+
+  <section class="editorial">
+    <span>Cozinha de fusão</span>
+    <span>Experiência sensorial</span>
+    <span>Eventos exclusivos e jantares únicos</span>
+  </section>
+
+  <section class="links">
+
+    <a href="https://wa.me/5500000000000" target="_blank" class="link-btn whatsapp">
+      <i class="fa-brands fa-whatsapp"></i>
+      Reservas via WhatsApp
+    </a>
+
+    <a href="menus.html" class="link-btn">
+      <i class="fa-solid fa-book-open"></i>
+      Menus
+    </a>
+
+    <button class="link-btn" onclick="toggleEvents()">
+      <i class="fa-solid fa-champagne-glasses"></i>
+      Eventos
+    </button>
+
+    <a href="https://www.instagram.com/aljcardoso/" target="_blank" class="link-btn">
+      <i class="fa-brands fa-instagram"></i>
+      Instagram
+    </a>
+
+  </section>
+
+  <!-- EVENTOS -->
+  <section id="events" class="events">
+    Atuamos em mini weddings, eventos corporativos e outros
+    eventos personalizados, desenvolvendo experiências gastronômicas
+    sob medida para cada ocasião.
+    <br><br>
+    Para orçamentos, entre em contato via WhatsApp.
+  </section>
+
+  <footer>
+    © <span id="year"></span> Alejandro Cuisine
+  </footer>
+
+</main>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+
+function toggleEvents(){
+  document.getElementById("events").classList.toggle("open");
+}
+</script>
+
+</body>
+</html>
